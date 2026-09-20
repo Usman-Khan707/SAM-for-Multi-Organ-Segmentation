@@ -24,7 +24,11 @@ The codebase therefore moves from evaluating the pretrained foundation model, to
 
 Importantly, the supplied repository contains the implementation and configuration required for these experiments, but it does **not** contain the corresponding experiment logs, numerical result tables, or final predictions. Consequently, this report describes the implemented methodology and demonstrated software capabilities without inventing quantitative performance results.
 
+<img width="1376" height="768" alt="Scientific_progression_diagram_f…_20260920203757" src="https://github.com/user-attachments/assets/2e4f0ec7-2a99-4152-bd3d-437f0e236171" />
+
 ---
+
+
 
 ## 1. Research Motivation
 
