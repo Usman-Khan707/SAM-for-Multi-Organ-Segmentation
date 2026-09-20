@@ -1,0 +1,16 @@
+seed: 13080
+use_gpu: True
+gpu_idx: 0
+
+dataset_info_path: '../../autodl-tmp/ml_data/dataset_0.json'
+data_root_path: '../../autodl-tmp/ml_data/RawData'
+num_workers: 0
+batch_size: 128
+
+model_type: 'vit_h'
+model_root_path: '../../autodl-tmp/ml_model'
+model_checkpoint: 'sam_vit_h_4b8939.pth'
+
+prompt_type: 'single_point'
+prompt_choice: 'center'
+prompt_num: 5

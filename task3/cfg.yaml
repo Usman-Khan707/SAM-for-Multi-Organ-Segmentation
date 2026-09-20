@@ -1,0 +1,49 @@
+seed: 13080
+use_gpu: True
+gpu_idx: 0
+
+logging: True
+log_dir: './logs'
+exp: 'bbox_joint'
+
+dataset_info_path: '../../autodl-tmp/ml_data/dataset_0.json'
+# dataset_info_path: './dataset_debug.json'
+data_root_path: '../../autodl-tmp/ml_data/RawData'
+embedded: False
+num_classes: 13
+num_workers: 0
+batch_size: 4
+img_input_size: [1024, 1024]
+
+classifier_path: './logs/ckpt/classifier.pth'
+
+model_type: 'vit_h'
+model_root_path: '../../autodl-tmp/ml_model'
+model_checkpoint: 'sam_vit_h_4b8939.pth'
+multimask: False
+
+prompt_type: 'bbox'
+prompt_choice: 'random'
+prompt_num: 16
+box_padding: 0
+
+mode: 'train'
+model_path: './logs/ckpt/best.pth'
+max_epoch: 5
+save_epoch: 1
+lr: 1.e-4
+wd: 1.e-8
+lr_decay: True
+warm_up: True
+warm_up_steps: 200
+lr_scheduler: 'step'
+lr_scheduler_gamma: 0.1
+lr_scheduler_step_size: 1200
+optimizer: 'AdamW'
+focal_alpha: 0.25
+focal_gamma: 2.
+dice_weight: 0.1
+dice_p: 1.
+dice_smooth: 1.
+iou_weight: 0.
+subset_valid: False
