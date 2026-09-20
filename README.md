@@ -6,8 +6,6 @@
 **Primary model:** Segment Anything Model (SAM), ViT-H backbone  
 **Dataset:** BTCV (Beyond the Cranial Vault) abdominal CT dataset  
 **Number of foreground classes:** 13  
-**Project context:** University course project, Autumn 2023
-
 ---
 
 ## Abstract
