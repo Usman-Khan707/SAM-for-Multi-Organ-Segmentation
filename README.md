@@ -1,13 +1,5 @@
 # SAM for Medical Image Segmentation
 
-## Research-Oriented Project Report
-
-**Project domain:** Medical image segmentation  
-**Primary model:** Segment Anything Model (SAM), ViT-H backbone  
-**Dataset:** BTCV (Beyond the Cranial Vault) abdominal CT dataset  
-**Number of foreground classes:** 13  
----
-
 ## Abstract
 
 This project investigates the adaptation of the **Segment Anything Model (SAM)** to medical image segmentation, with a focus on multi-organ abdominal CT images from the **BTCV dataset**. Rather than treating SAM as a fixed natural-image segmentation model, the project develops a progression of increasingly specialized pipelines.
@@ -19,8 +11,6 @@ The implementation is organized into three experimental stages:
 3. **Joint segmentation and organ classification**, in which a separately trained ResNet-style classifier is integrated with the fine-tuned SAM pipeline.
 
 The codebase therefore moves from evaluating the pretrained foundation model, to domain adaptation, and finally to a segmentation-plus-classification system. The implementation includes support for multiple prompt types, medical-volume preprocessing, class-specific binary masks, Dice/Focal losses, IoU supervision, checkpointing, TensorBoard logging, and 3D mesh visualization.
-
-Importantly, the supplied repository contains the implementation and configuration required for these experiments, but it does **not** contain the corresponding experiment logs, numerical result tables, or final predictions. Consequently, this report describes the implemented methodology and demonstrated software capabilities without inventing quantitative performance results.
 
 
 <img width="1376" height="483" alt="Scientific_progression_diagram_f…_20260920203757" src="https://github.com/user-attachments/assets/ac44c712-33aa-42fc-931a-b7eac4d3750a" />
