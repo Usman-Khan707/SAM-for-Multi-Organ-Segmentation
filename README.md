@@ -24,7 +24,9 @@ The codebase therefore moves from evaluating the pretrained foundation model, to
 
 Importantly, the supplied repository contains the implementation and configuration required for these experiments, but it does **not** contain the corresponding experiment logs, numerical result tables, or final predictions. Consequently, this report describes the implemented methodology and demonstrated software capabilities without inventing quantitative performance results.
 
-<img width="1376" height="768" alt="Scientific_progression_diagram_f…_20260920203757" src="https://github.com/user-attachments/assets/2e4f0ec7-2a99-4152-bd3d-437f0e236171" />
+
+<img width="1376" height="483" alt="Scientific_progression_diagram_f…_20260920203757" src="https://github.com/user-attachments/assets/ac44c712-33aa-42fc-931a-b7eac4d3750a" />
+
 
 ---
 
@@ -182,26 +184,8 @@ batch_size: 128
 ```
 
 The workflow is:
+<img width="1376" height="768" alt="Medical_CT_segmentation_flowchart_20260920204104" src="https://github.com/user-attachments/assets/9c701749-9f42-4ff7-99f2-2b28d24ec13f" />
 
-```text
-BTCV CT volume
-      ↓
-2D CT slice extraction
-      ↓
-Identify anatomical structures
-      ↓
-Generate center-point prompt
-      ↓
-SAM image encoder
-      ↓
-SAM prompt encoder
-      ↓
-SAM mask decoder
-      ↓
-Predicted segmentation
-      ↓
-Dice evaluation
-```
 
 For each present anatomical class, the implementation generates a target binary mask and computes the Dice coefficient between the predicted mask and the ground truth.
 
@@ -303,33 +287,8 @@ lr: 1e-4
 ```
 
 The main architectural flow is:
+<img width="1376" height="768" alt="Medical_segmentation_and_classif…_20260920204233" src="https://github.com/user-attachments/assets/73f8f703-d2bc-492f-954c-2769884bfbc2" />
 
-```text
-                 ┌──────────────────────┐
-CT slice ───────►│   SAM Image Encoder  │
-                 └──────────┬───────────┘
-                            │
-                            ▼
-                 ┌──────────────────────┐
-Bounding Box ───►│   SAM Prompt Encoder │
-                 └──────────┬───────────┘
-                            │
-                            ▼
-                 ┌──────────────────────┐
-                 │   SAM Mask Decoder   │
-                 └──────────┬───────────┘
-                            │
-                            ▼
-                     Predicted Mask
-                            │
-                  ┌─────────┴─────────┐
-                  │                   │
-                  ▼                   ▼
-          Segmentation Loss     ResNet Classifier
-                                      │
-                                      ▼
-                              Organ Classification
-```
 
 The total training objective becomes:
 
@@ -387,6 +346,7 @@ The implementation:
 7. computes its center;
 8. computes its bounding box;
 9. stores the corresponding organ/class identifier.
+<img width="1376" height="380" alt="Medical_CT_data_processing_pipeline_20260920204422" src="https://github.com/user-attachments/assets/7a363ac9-f903-4889-a489-138d2c048ba5" />
 
 The system is configured for:
 
