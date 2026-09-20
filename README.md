@@ -710,90 +710,6 @@ The important research value of the implementation is therefore not limited to a
 
 ---
 
-# 15. Important Limitations and Reproducibility Notes
-
-The following points are important when interpreting the project.
-
-## 15.1 Numerical results are not included in the supplied archive
-
-The repository contains code, configurations, and the original SAM assets, but the supplied ZIP does not contain the experiment logs or numerical result tables required to independently state final Dice values.
-
-Therefore, this README deliberately does **not** claim a specific final Dice score.
-
-If experiment logs or result files are added later, a quantitative Results section should report:
-
-- per-organ Dice;
-- mean Dice;
-- standard deviation where multiple runs exist;
-- prompt type;
-- training configuration;
-- validation/test split;
-- checkpoint used.
-
-## 15.2 The repository uses validation data as the test loader in Tasks 2 and 3
-
-The code explicitly contains:
-
-```python
-test_set = valid_set
-```
-
-Therefore, the current implementation does not provide an independent test set for those tasks.
-
-For a formal research evaluation, the test pipeline should be separated from validation.
-
-## 15.3 Task 3 classifier evaluation should be interpreted carefully
-
-The joint validation code contains:
-
-```python
-predict = self.classifier(label.float())
-```
-
-rather than feeding the predicted segmentation mask into the classifier during that particular accuracy calculation.
-
-Consequently, the reported classifier accuracy in that validation path does not measure the complete end-to-end classification performance from SAM's predicted mask.
-
-The training path does use the predicted binary mask:
-
-```python
-predict = self.classifier(binary_mask)
-```
-
-A rigorous final evaluation should therefore explicitly compute classification performance using the predicted segmentation output.
-
-## 15.4 IoU loss is implemented but disabled in the supplied configurations
-
-Both Task 2 and Task 3 include IoU loss computation, but:
-
-```yaml
-iou_weight: 0.
-```
-
-Therefore, IoU loss does not contribute to the configured optimization objective.
-
-## 15.5 Task 2 uses cached image embeddings
-
-Task 2 is configured with:
-
-```yaml
-embedded: True
-```
-
-The dataset pipeline can precompute image embeddings using SAM's image encoder.
-
-This reduces repeated image-encoder computation during training, but increases preprocessing/storage requirements.
-
-## 15.6 The implementation is primarily slice-based
-
-Although the original input is a 3D CT volume, the segmentation model operates on 2D slices.
-
-The final 3D representation is reconstructed from the slice-wise predictions.
-
-This means the core model does not explicitly learn 3D spatial context in the same way as a volumetric 3D segmentation network.
-
----
-
 # 16. Software Structure
 
 ```text
@@ -944,23 +860,8 @@ with the appropriate segmentation array and output path.
 
 ---
 
-# 19. Recommended Results Section for a Formal Paper
 
-The implementation is ready for a research-style comparison, but the actual experimental values should be inserted from the experiment logs.
-
-A final paper can report a table such as:
-
-| Experiment | Prompt | Training | Mean Dice | Notes |
-|---|---|---|---:|---|
-| Task 1 | Center point | Frozen/pretrained SAM | **To be measured** | Zero-shot baseline |
-| Task 2 | Center point | Mask-decoder fine-tuning | **To be measured** | Medical adaptation |
-| Task 3 | Bounding box | Joint SAM + classifier | **To be measured** | Joint framework |
-
-Per-organ results should also be reported because mean Dice alone can hide large differences between anatomical structures.
-
----
-
-# 20. Conclusion
+# 19. Conclusion
 
 This project implements a complete experimental framework for investigating **SAM-based medical image segmentation on multi-organ CT data**.
 
